@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 
 class Clientes(models.Model):
@@ -23,7 +23,7 @@ class Articulos(models.Model):
     
 class Pedidos(models.Model):
     numero=models.IntegerField()
-    fecha=models.DateField
+    fecha=models.DateField(default=timezone.now)
     entregado=models.BooleanField()
 
 
