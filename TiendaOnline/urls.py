@@ -20,6 +20,6 @@ from  gestionPedidos import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('busqueda/', views.busqueda),
+    path('busqueda/', views.busqueda_productos),
          
          ]
