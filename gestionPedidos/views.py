@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from gestionPedidos.models import Articulos
 # Create your views here.
 
 def busqueda_productos(request):
@@ -8,6 +8,17 @@ def busqueda_productos(request):
     return render(request, "busqueda.html")
 
 def buscar(request):
-    mensaje="Articulo Buscado: %r" %request.GET["prd"]
+
+    if request.GET["prd"]:
+        
+        mensaje="Articulo Buscado: %r" %request.GET["prd"]
+        producto=request.GET["prd"]
+        articulos=Articulos.objects.filter(nombre__icontains=producto) #icontrains funciona como el Like del SQL
+        return render(request, "resultados_busqueda.html",{"articulos":articulos, "query":producto})
+
+    else:
+        
+        mensaje="No se puede dejar en blanco"
+
     return HttpResponse(mensaje)
 
