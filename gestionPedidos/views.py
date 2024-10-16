@@ -13,8 +13,12 @@ def buscar(request):
         
         mensaje="Articulo Buscado: %r" %request.GET["prd"]
         producto=request.GET["prd"]
-        articulos=Articulos.objects.filter(nombre__icontains=producto) #icontrains funciona como el Like del SQL
-        return render(request, "resultados_busqueda.html",{"articulos":articulos, "query":producto})
+        if len(producto)>30:
+            mensaje="Texto de Busqueda demasiado largo"
+
+        else: 
+            articulos=Articulos.objects.filter(nombre__icontains=producto) #icontrains funciona como el Like del SQL
+            return render(request, "resultados_busqueda.html",{"articulos":articulos, "query":producto})
 
     else:
         
@@ -22,3 +26,10 @@ def buscar(request):
 
     return HttpResponse(mensaje)
 
+def contacto(request):
+
+    if request.method=="POST":
+
+        return render (request, "gracias.html")
+  
+    return render (request, "contactenos.html")
